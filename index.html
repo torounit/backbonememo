@@ -17,17 +17,34 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+        <div class="container">
+            <h1>Memos</h1>
+            <div id="memoApp">
+                <form action="" method="post" class="row" role="form">
+                    <div class="col-md-8">
+                        <input type="text" name="" value="" placeholder=""  class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" class="btn btn-large btn-primary" id="post">Memo</a>
+                    </div>
+                </form>
+            </div>
+            <ul class="memoList"></ul>
+        </div>
+
+
+
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <!-- Latest compiled and minified JavaScript -->
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.0/backbone.localStorage-min.js"></script>
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
