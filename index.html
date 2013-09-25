@@ -13,24 +13,32 @@
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
         <!-- Optional theme -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
 
         <div class="container">
-            <h1>Memos</h1>
+            <h1>Memos!</h1>
             <div id="memoApp">
-                <form action="" method="post" class="row" role="form">
-                    <div class="col-md-8">
-                        <input type="text" name="" value="" placeholder=""  class="form-control">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="" method="post" role="form" class="row">
+                            <div class="col-md-8">
+                                <input type="text" name="" value="" placeholder=""  class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <a href="#" class="btn btn-large btn-primary" id="post">Memo</a>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-md-4">
-                        <a href="#" class="btn btn-large btn-primary" id="post">Memo</a>
-                    </div>
-                </form>
+                </div>
+
             </div>
-            <ul class="memoList"></ul>
+
+            <table class="memoList table table-striped"></table>
+
         </div>
 
 

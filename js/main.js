@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 (function($) {
-  var AppView, Memo, Memos, _ref, _ref1, _ref2;
+  var AppView, Memo, Memos, memos, _ref, _ref1, _ref2;
   Memo = (function(_super) {
     __extends(Memo, _super);
 
@@ -28,6 +28,7 @@ var __hasProp = {}.hasOwnProperty,
     return Memos;
 
   })(Backbone.Collection);
+  memos = new Memos;
   AppView = (function(_super) {
     __extends(AppView, _super);
 
@@ -36,25 +37,33 @@ var __hasProp = {}.hasOwnProperty,
       return _ref2;
     }
 
-    AppView.prototype.initialize = function() {
-      return this.collection = new Memos();
-    };
-
-    AppView.prototype.el = "#memoApp";
-
-    AppView.prototype.template = _.template("<li><%- memo %></li>");
+    AppView.prototype.template = _.template("<tr><td><%- memo %></td></tr>");
 
     AppView.prototype.events = {
-      "click #post": "post"
+      "click #post": "post",
+      "keypress input": "disableEnter"
+    };
+
+    AppView.prototype.initialize = function() {
+      return this.listenTo(memos, 'add', function(input) {
+        return $(".memoList").append(this.template(input.toJSON()));
+      });
+    };
+
+    AppView.prototype.disableEnter = function(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        return this.post();
+      }
     };
 
     AppView.prototype.post = function() {
       var input;
       input = this.$("input").val();
-      this.model = new Memo({
+      memos.add({
         memo: input
       });
-      return $(".memoList").append(this.template(this.model.toJSON()));
+      return this.$("input").val("");
     };
 
     return AppView;
@@ -62,7 +71,8 @@ var __hasProp = {}.hasOwnProperty,
   })(Backbone.View);
   return $(function() {
     var App;
-    App = new AppView();
-    return console.log(App);
+    return App = new AppView({
+      el: "#memoApp"
+    });
   });
 })(jQuery);
