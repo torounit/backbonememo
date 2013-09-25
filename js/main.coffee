@@ -4,6 +4,7 @@ do ($=jQuery) ->
   class Memo extends Backbone.Model
 
   class Memos extends Backbone.Collection
+    localStorage: new Store("memo")
     model: Memo
 
   memos = new Memos
@@ -17,7 +18,15 @@ do ($=jQuery) ->
       "keypress input": "disableEnter"
 
     initialize: () ->
-      @listenTo memos, 'add', (input)->
+      @listenTo memos, 'add', @addMemo
+      @listenTo memos, 'reset', @render
+      memos.fetch()
+
+    render: ->
+      @.each(@addMemo, @)
+
+
+    addMemo:(input) ->
         $(".memoList").append @template( input.toJSON() )
 
 
@@ -28,7 +37,8 @@ do ($=jQuery) ->
 
     post:() ->
       input = @$("input").val()
-      memos.add({memo: input})
+      memo = new Memo memo:input
+      memos.create(memo)
       @$("input").val("")
 
 

@@ -23,6 +23,8 @@ var __hasProp = {}.hasOwnProperty,
       return _ref1;
     }
 
+    Memos.prototype.localStorage = new Store("memo");
+
     Memos.prototype.model = Memo;
 
     return Memos;
@@ -45,9 +47,17 @@ var __hasProp = {}.hasOwnProperty,
     };
 
     AppView.prototype.initialize = function() {
-      return this.listenTo(memos, 'add', function(input) {
-        return $(".memoList").append(this.template(input.toJSON()));
-      });
+      this.listenTo(memos, 'add', this.addMemo);
+      this.listenTo(memos, 'reset', this.render);
+      return memos.fetch();
+    };
+
+    AppView.prototype.render = function() {
+      return this.each(this.addMemo, this);
+    };
+
+    AppView.prototype.addMemo = function(input) {
+      return $(".memoList").append(this.template(input.toJSON()));
     };
 
     AppView.prototype.disableEnter = function(e) {
@@ -58,11 +68,12 @@ var __hasProp = {}.hasOwnProperty,
     };
 
     AppView.prototype.post = function() {
-      var input;
+      var input, memo;
       input = this.$("input").val();
-      memos.add({
+      memo = new Memo({
         memo: input
       });
+      memos.create(memo);
       return this.$("input").val("");
     };
 
